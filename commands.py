@@ -1,6 +1,11 @@
 from tinydb import TinyDB, Query
+import os
 db = TinyDB('database.json')
 gradeq = Query()
+
+def clear():
+    """Clear the terminal"""
+    os.system('cls')
 
 def check(subjects:str, bimonthly:int):
     """Checks whether a subject and a bimonthly period are valid and exist in the database."""
@@ -27,7 +32,7 @@ def add(subjects:str, bimonthly:int, grade:float):
 def get(subjects:str, bimonthly:int):
     """Retrieves the grade for a specified subject and bimonthly period."""
     if check(subjects, bimonthly):
-        return db.search((gradeq.subjects == subjects) & (gradeq.bimonthly == bimonthly))[0]
+        return db.search((gradeq.subjects == subjects) & (gradeq.bimonthly == bimonthly))[0]['grade']
 
 def get_all(subjects:str):
     """Retrieves all grades for a specified subject."""
